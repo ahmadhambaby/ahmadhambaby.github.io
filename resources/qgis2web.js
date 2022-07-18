@@ -100,7 +100,7 @@ var map = new ol.Map({
     overlays: [overlayPopup],
     layers: layersList,
     view: new ol.View({
-         maxZoom: 28, minZoom: 1
+         maxZoom: 28, minZoom: 9
     })
 });
 
@@ -109,7 +109,7 @@ map.addControl(layerSwitcher);
 
     var searchLayer = new SearchLayer({
       layer: lyr_DIKewenanganPusatWSCitarum_1,
-      colName: 'Seksi',
+      colName: 'Nama_DI',
       zoom: 10,
       collapsed: true,
       map: map
@@ -120,7 +120,7 @@ map.addControl(layerSwitcher);
     .getElementsByTagName('button')[0].className +=
     ' fa fa-binoculars';
     
-map.getView().fit([11845428.299319, -842373.731013, 12036503.110162, -629712.154069], map.getSize());
+map.getView().fit([11759288.640726, -826471.568119, 12162297.422986, -658098.062838], map.getSize());
 
 var NO_POPUP = 0
 var ALL_FIELDS = 1
