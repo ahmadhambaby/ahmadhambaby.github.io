@@ -5,7 +5,7 @@ function categories_DaerahIrigasi_1(feature, value, size, resolution, labelText,
                        placement) {
                 switch(value.toString()) {case 'Provinsi':
                     return [ new ol.style.Style({
-        fill: new ol.style.Fill({color: 'rgba(150,150,150,1.0)'}),
+        stroke: new ol.style.Stroke({color: 'rgba(56,128,54,1.0)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}),fill: new ol.style.Fill({color: 'rgba(77,175,74,1.0)'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth)
@@ -13,7 +13,7 @@ function categories_DaerahIrigasi_1(feature, value, size, resolution, labelText,
                     break;
 case 'Pusat':
                     return [ new ol.style.Style({
-        stroke: new ol.style.Stroke({color: 'rgba(56,128,54,1.0)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}),fill: new ol.style.Fill({color: 'rgba(77,175,74,1.0)'}),
+        stroke: new ol.style.Stroke({color: 'rgba(247,247,247,1.0)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 0}),fill: new ol.style.Fill({color: 'rgba(197,197,197,1.0)'}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
                               bufferWidth)
