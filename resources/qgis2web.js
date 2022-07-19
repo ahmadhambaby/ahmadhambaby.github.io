@@ -1,35 +1,4 @@
 
-isTracking = false;
-var geolocateControl = (function (Control) {
-    geolocateControl = function(opt_options) {
-        var options = opt_options || {};
-        var button = document.createElement('button');
-        button.className += ' fa fa-map-marker';
-        var handleGeolocate = function() {
-            if (isTracking) {
-                map.removeLayer(geolocateOverlay);
-                isTracking = false;
-          } else if (geolocation.getTracking()) {
-                map.addLayer(geolocateOverlay);
-                map.getView().setCenter(geolocation.getPosition());
-                isTracking = true;
-          }
-        };
-        button.addEventListener('click', handleGeolocate, false);
-        button.addEventListener('touchstart', handleGeolocate, false);
-        var element = document.createElement('div');
-        element.className = 'geolocate ol-unselectable ol-control';
-        element.appendChild(button);
-        ol.control.Control.call(this, {
-            element: element,
-            target: options.target
-        });
-    };
-    if (Control) geolocateControl.__proto__ = Control;
-    geolocateControl.prototype = Object.create(Control && Control.prototype);
-    geolocateControl.prototype.constructor = geolocateControl;
-    return geolocateControl;
-}(ol.control.Control));
 
 var measuring = false;
 var measureControl = (function (Control) {
@@ -93,22 +62,28 @@ var expandedAttribution = new ol.control.Attribution({
 
 var map = new ol.Map({
     controls: ol.control.defaults({attribution:false}).extend([
-        expandedAttribution,new measureControl(),new geolocateControl()
+        expandedAttribution,new measureControl()
     ]),
     target: document.getElementById('map'),
     renderer: 'canvas',
     overlays: [overlayPopup],
     layers: layersList,
     view: new ol.View({
-         maxZoom: 28, minZoom: 9
+         maxZoom: 28, minZoom: 26, projection: new ol.proj.Projection({
+            code: 'EPSG:4326',
+            extent: [-20037508.342789, -20037508.342789, 20037508.342789, 20037508.342789],
+            units: 'degrees'})
     })
 });
 
 var layerSwitcher = new ol.control.LayerSwitcher({tipLabel: "Layers"});
 map.addControl(layerSwitcher);
+layerSwitcher.hidePanel = function() {};
+layerSwitcher.showPanel();
+
 
     var searchLayer = new SearchLayer({
-      layer: lyr_DIKewenanganPusatWSCitarum_1,
+      layer: lyr_DaerahIrigasi_1,
       colName: 'Nama_DI',
       zoom: 10,
       collapsed: true,
@@ -120,7 +95,7 @@ map.addControl(layerSwitcher);
     .getElementsByTagName('button')[0].className +=
     ' fa fa-binoculars';
     
-map.getView().fit([11759288.640726, -826471.568119, 12162297.422986, -658098.062838], map.getSize());
+map.getView().fit([106.795402, -7.362157, 108.349398, -5.903136], map.getSize());
 
 var NO_POPUP = 0
 var ALL_FIELDS = 1
@@ -645,44 +620,6 @@ var formatLength = function(line) {
 
 addInteraction();
 
-
-      var geolocation = new ol.Geolocation({
-  projection: map.getView().getProjection()
-});
-
-
-var accuracyFeature = new ol.Feature();
-geolocation.on('change:accuracyGeometry', function() {
-  accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
-});
-
-var positionFeature = new ol.Feature();
-positionFeature.setStyle(new ol.style.Style({
-  image: new ol.style.Circle({
-    radius: 6,
-    fill: new ol.style.Fill({
-      color: '#3399CC'
-    }),
-    stroke: new ol.style.Stroke({
-      color: '#fff',
-      width: 2
-    })
-  })
-}));
-
-geolocation.on('change:position', function() {
-  var coordinates = geolocation.getPosition();
-  positionFeature.setGeometry(coordinates ?
-      new ol.geom.Point(coordinates) : null);
-});
-
-var geolocateOverlay = new ol.layer.Vector({
-  source: new ol.source.Vector({
-    features: [accuracyFeature, positionFeature]
-  })
-});
-
-geolocation.setTracking(true);
 
 
 var attributionComplete = false;
