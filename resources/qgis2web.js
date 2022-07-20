@@ -82,20 +82,7 @@ layerSwitcher.hidePanel = function() {};
 layerSwitcher.showPanel();
 
 
-    var searchLayer = new SearchLayer({
-      layer: lyr_DaerahIrigasi_1,
-      colName: 'Nama_DI',
-      zoom: 10,
-      collapsed: true,
-      map: map
-    });
-
-    map.addControl(searchLayer);
-    document.getElementsByClassName('search-layer')[0]
-    .getElementsByTagName('button')[0].className +=
-    ' fa fa-binoculars';
-    
-map.getView().fit([106.795402, -7.362157, 108.349398, -5.903136], map.getSize());
+map.getView().fit([106.853239, -7.206577, 108.261267, -5.884603], map.getSize());
 
 var NO_POPUP = 0
 var ALL_FIELDS = 1
